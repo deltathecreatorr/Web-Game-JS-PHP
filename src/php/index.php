@@ -9,6 +9,8 @@
 </head>
 
 <body>
-    
+    <?php
+        include 'partials/navbar.php';
+    ?>
 </body>
 </html>
