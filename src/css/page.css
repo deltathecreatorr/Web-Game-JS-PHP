@@ -3,12 +3,3 @@ html, body {
     margin: 0;
     padding: 0; 
 }
-
-.main { 
-    background-image: url("../images/arcade-unsplash.jpg") !important; 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #000;
-    height: 100%;
-}
