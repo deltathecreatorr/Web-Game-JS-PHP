@@ -1,0 +1,21 @@
+.topnav {
+    background-color: blue;
+    overflow: hidden;
+}
+
+.topnav a {
+    display: block;
+    float: right;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+.topnav a:hover {
+    background-color: lightblue;
+    color: black;
+}
