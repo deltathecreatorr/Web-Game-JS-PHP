@@ -21,9 +21,9 @@ $registered = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 <body>
     <?php include 'partials/navbar.php'; ?>
     <div class="main">
-        <h1> Welcome to Pairs </h1>
-        <?php if ($registered) : ?>
-            <a type="button" href="pairs.php" class="btn btn-light btn-lg">Click here to play</a>
+        <h1> Welcome To Pairs </h1>
+        <?php if (true) : ?>
+            <a type="button" href="pairs.php" class="btn btn-primary btn-lg">Click here to play</a>
         <?php else : ?>
             <p> You're not using a registered session? 
                 <a href="registration.php">Register now</a>
