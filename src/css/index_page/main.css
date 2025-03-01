@@ -1,0 +1,26 @@
+.main { 
+    background-image: url("../../images/arcade-unsplash.jpg") !important; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    height: 100%;
+}
+
+.main h1 {
+    color: white;
+    font-size: 32px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+.main p {
+    color: white;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 10px;
+}

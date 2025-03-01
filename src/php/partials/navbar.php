@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,11 +15,16 @@
 
 <body>
     <div class="topnav">
+        <?php
+
+        $registered = isset($_SESSION['registered']) && $_SESSION['registered'] === true;
+
+        ?>
         <a href="index.php" name="home" style="float: left">Home</a>
         <a href="pairs.php" name="memory">Play Pairs</a>
         
-        <?php if ($condition) : ?>
-            echo '<a href="leaderboard.php">Leaderboard</a>
+        <?php if ($registered) : ?>
+            <a href="leaderboard.php">Leaderboard</a>
         <?php else : ?>
             <a href="registration.php">Register</a>
         <?php endif; ?>
