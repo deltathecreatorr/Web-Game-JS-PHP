@@ -24,7 +24,7 @@ $registered = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
     <div class="main">
         <div class="index_page">
             <h1> Welcome To Pairs </h1>
-            <?php if (true) : ?>
+            <?php if ($registered) : ?>
                 <a type="button" href="pairs.php" class="btn btn-primary btn-lg">Click here to play</a>
             <?php else : ?>
                 <p> You're not using a registered session? 
