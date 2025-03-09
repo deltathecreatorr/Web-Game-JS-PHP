@@ -1,0 +1,10 @@
+
+.main { 
+    background-image: url("../images/arcade-unsplash.jpg") !important; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    font-family: Verdana, Tahoma, sans-serif;
+    height: 100%;
+}

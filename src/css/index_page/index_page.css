@@ -1,0 +1,22 @@
+.index_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.index_page h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 0px;
+}
+
+.index_page p {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 10px;
+}
