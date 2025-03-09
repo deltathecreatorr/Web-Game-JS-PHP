@@ -1,0 +1,15 @@
+.game_page {
+    background-color: gray !important;
+    background-size: cover;
+    height: 100%;
+}
+
+.game_area {
+    display: block;
+    background-color: lightblue;
+    border: 5px solid transparent;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 600px;
+    height: 400px;
+    margin-top: 50px;
+}
