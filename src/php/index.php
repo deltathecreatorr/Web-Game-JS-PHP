@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$registered = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
+$register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 
 ?>
 
@@ -24,7 +24,7 @@ $registered = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
     <div class="main">
         <div class="index_page">
             <h1> Welcome To Pairs </h1>
-            <?php if ($registered) : ?>
+            <?php if ($register_set) : ?>
                 <a type="button" href="pairs.php" class="btn btn-primary btn-lg">Click here to play</a>
             <?php else : ?>
                 <p> You're not using a registered session? 
