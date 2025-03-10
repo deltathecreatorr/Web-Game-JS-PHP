@@ -1,3 +1,10 @@
+<?php
+
+$register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +25,7 @@
     <div class="game_page">
         <div class="centered">
             <div class="game_area">
-                
+                <button type="button" class="btn btn-info">Start the game</button>
             </div>
         </div>
     </div>
