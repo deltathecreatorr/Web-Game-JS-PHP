@@ -1,14 +1,14 @@
 .game-page {
-    background-color: gray !important;
+    background-color: white !important;
     background-size: cover;
     height: 100%;
 }
 
 .start-game-area {
     display: block;
-    background-color: darkred;
+    background-color: gray;
     border: 5px solid transparent;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px 5px;
     width: 700px;
     height: 500px;
     margin-top: 50px;
@@ -28,8 +28,8 @@
     height: 100px;
     border: 5px solid transparent;
     margin: 20px 20px 20px 20px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    background-color: lightcoral;
+    box-shadow: rgba(99, 99, 99, 0.2) 5px 5px 5px 5px;
+    background-color: darkgoldenrod;
     position: relative;
     perspective: 800px;
     border-radius: 25%;
@@ -99,6 +99,27 @@
 
 .game-card.flipped {
     transform: rotateY( 180deg );
+}
+
+.scoreboard-container {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.scoreboard {
+    margin: 0 auto;
+    width: 200px;
+    height: 100px;
+    border: 1px solid black;
+    background-color: darkgoldenrod;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 1px 1px;
+}
+
+.scoreboard p {
+    padding-top: 35px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 

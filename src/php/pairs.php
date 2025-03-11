@@ -5,12 +5,11 @@ $complexity = $_COOKIE ['avatar_complexity'];
 
 $simple_image_list = array(
     array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
-    array('../images/emoji_assets/eyes/rolling.png','../images/emoji_assets/mouth/open.png','../images/emoji_assets/skin/green.png'),
-    array('../images/emoji_assets/eyes/winking.png"','../images/emoji_assets/mouth/smiling.png','../images/emoji_assets/skin/red.png')
+    array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
+    array('../images/emoji_assets/eyes/winking.png"','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
 );
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +40,11 @@ $simple_image_list = array(
                     <button id="remove-button" type="button" class="btn btn-warning">Start the game</button>
                     <?php if ($complexity === 'simple') : ?>
                         <div id="game-square" class="hidden">
+                            <div class="scoreboard">
+                                <p>
+                                    Score: 
+                                </p>
+                            </div>
                             <div id="game-board">
                                 <?php for ($x = 0; $x <= 1; $x++) : ?>
                                     <?php foreach ($simple_image_list as $preset) : ?>
@@ -51,9 +55,9 @@ $simple_image_list = array(
                                                 </div>
                                                 <div class="back">
                                                     <div class="image-wrapper">
-                                                        <img src="<?php echo $preset[2]; ?>" class="overlayImage">
-                                                        <img src="<?php echo $preset[1]; ?>" class="overlayImage">
-                                                        <img src="<?php echo $preset[0]; ?>" class="overlayImage">
+                                                        <img src="<?php echo $preset[2]; ?>" class="overlayImage skin">
+                                                        <img src="<?php echo $preset[1]; ?>" class="overlayImage mouth">
+                                                        <img src="<?php echo $preset[0]; ?>" class="overlayImage eyes">
                                                     </div>
                                                 </div>
                                             </div>
