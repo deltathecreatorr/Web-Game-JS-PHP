@@ -1,12 +1,12 @@
 <?php
 
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
-$complexity = $_COOKIE ['avatar_complexity'];
+$complexity = $_COOKIE['avatar_complexity'];
 
 $simple_image_list = array(
     array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
     array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
-    array('../images/emoji_assets/eyes/winking.png"','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
+    array('../images/emoji_assets/eyes/winking.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
 );
 
 $medium_image_list = array(
@@ -56,7 +56,7 @@ $medium_random_list = array(
                         <div id="game-square" class="hidden">
                             <div class="scoreboard">
                                 <p>
-                                    Score: 
+                                    Score 
                                 </p>
                             </div>
                             <div id="game-board">
@@ -91,9 +91,10 @@ $medium_random_list = array(
                                     <?php $medium_random_list[$z][2] = $emoji_skin ?>
                                 <?php endfor; ?>
                             <div class="scoreboard">
-                                <p>
+                                <p id="score">
                                     Score:
-                                    <br>
+                                </p>
+                                <p id="time">
                                     Time:
                                 </p>
                             </div>

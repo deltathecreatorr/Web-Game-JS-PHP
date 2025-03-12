@@ -10,8 +10,9 @@
     border: 5px solid transparent;
     box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px 5px;
     width: 700px;
-    height: 500px;
+    height: 550px;
     margin-top: 50px;
+    padding-top: 20px;
 }
 
 #game-board {
@@ -20,7 +21,7 @@
     gap: 10px;
     justify-content: center;
     align-items: center;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .game-card-container {

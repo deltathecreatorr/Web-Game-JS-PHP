@@ -9,6 +9,7 @@ $(document).ready(function(){
     let $complexity = document.cookie;
     var start_time, end_time
 
+
     function start_timer () {
         start_time = new Date();
     }
@@ -20,21 +21,21 @@ $(document).ready(function(){
         difference /= 1000;
 
         var seconds = Math.round(difference);
-        $('.scoreboard p').html('Time: ' + seconds);
-
+        $('.scoreboard #time').html('Time: ' + seconds);
     }
 
     function update_score(){
         if ($complexity === 'simple'){
             score = score - (attempts * 2)
         } else if ($complexity === 'medium'){
-            score = score - (attempts * 2)
+            score = score - ((attempts * 2) + (seconds)) 
+        } else {
+            score = score - (attempts * 3)
         }
 
         if (score < 0){
             score = 0;
         }
-        $('.scoreboard p').html('Score: ' + score);
     };
 
     function final_score() {
@@ -46,8 +47,22 @@ $(document).ready(function(){
         } else {
             points = 0;
         }
-        score = score + points;
-        $(".scoreboard p").html('Score: ' + score);
+
+        if ($complexity === 'simple'){
+            score = score + points;
+            $(".scoreboard #score").html('Score: ' + score);
+        } else {
+            if (seconds < 10) {
+                points += 50;
+            } else if (seconds < 30) {
+                points += 25;
+            } else {
+                points = 0;
+            }
+
+            score = score + points;
+            $(".scoreboard #score").html('Score: ' + score);
+        }
     };
 
     function check_win(){
@@ -61,7 +76,13 @@ $(document).ready(function(){
         });
 
         if (allmatched) {
-            final_score();
+            if ($complexity === 'simple'){
+                final_score();
+            } else {
+                end_timer();
+                final_score();
+            }
+            
         } else {
             return false;
         }
@@ -90,8 +111,12 @@ $(document).ready(function(){
 
     $('#remove-button').on('click', function(){
         $('#remove-button').remove();
-        start_timer();
-        display_cards();
+        if ($complexity === 'simple'){
+            display_cards();
+        } else {
+            display_cards();
+            start_timer();
+        }
     })
 
     function check_cards() {
