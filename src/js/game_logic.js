@@ -2,30 +2,52 @@
 
 $(document).ready(function(){
 
-    let $attempts = 0;
-    let $score = 100;
-    let $checking = false;
+    let attempts = 0;
+    let score = 200;
+    let checking = false;
     let flipped_cards = [];
+    let $complexity = document.cookie;
+    var start_time, end_time
+
+    function start_timer () {
+        start_time = new Date();
+    }
+
+    function end_timer() {
+        end_time = new Date();
+        var difference = end_time - start_time;
+
+        difference /= 1000;
+
+        var seconds = Math.round(difference);
+        $('.scoreboard p').html('Time: ' + seconds);
+
+    }
 
     function update_score(){
-        $score = $score - ($attempts * 2)
-        if ($score < 0){
-            $score = 0;
+        if ($complexity === 'simple'){
+            score = score - (attempts * 2)
+        } else if ($complexity === 'medium'){
+            score = score - (attempts * 2)
         }
-        $('.scoreboard p').html('Score: ' + $score);
+
+        if (score < 0){
+            score = 0;
+        }
+        $('.scoreboard p').html('Score: ' + score);
     };
 
     function final_score() {
-        let $points = 0;
-        if ($attempts < 10) {
-            $points = 50;
-        } else if ($attempts < 20) {
-            $points = 25;
+        let points = 0;
+        if (attempts < 10) {
+            points = 50;
+        } else if (attempts < 20) {
+            points = 25;
         } else {
-            $points = 0;
+            points = 0;
         }
-        $score = $score + $points;
-        $(".scoreboard p").html('Score: ' + $score);
+        score = score + points;
+        $(".scoreboard p").html('Score: ' + score);
     };
 
     function check_win(){
@@ -50,7 +72,7 @@ $(document).ready(function(){
     };
 
     $(document).on('click','.game-card', function(){
-        if ( $checking || $(this).hasClass('flipped') || $(this).hasClass('matched')){
+        if ( checking || $(this).hasClass('flipped') || $(this).hasClass('matched')){
             return;
         }
 
@@ -58,16 +80,17 @@ $(document).ready(function(){
         flipped_cards.push($(this));
 
         if (flipped_cards.length === 2 ) {
-            $checking = true;
+            checking = true;
             setTimeout(check_cards, 500);
 
         } else {
-            $checking = false;
+            checking = false;
         }
     })
 
     $('#remove-button').on('click', function(){
         $('#remove-button').remove();
+        start_timer();
         display_cards();
     })
 
@@ -77,7 +100,7 @@ $(document).ready(function(){
 
         if (flipped_cards.length === 2) {
 
-            $attempts++;
+            attempts++;
             update_score();
 
             var first_cardimg = {
@@ -107,7 +130,7 @@ $(document).ready(function(){
             }
         }
         flipped_cards = [];
-        $checking = false; 
+        checking = false; 
     }
 
     function shuffle(array) {

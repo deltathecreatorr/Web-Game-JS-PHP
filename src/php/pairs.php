@@ -9,6 +9,20 @@ $simple_image_list = array(
     array('../images/emoji_assets/eyes/winking.png"','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
 );
 
+$medium_image_list = array(
+    array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/eyes/long.png','../images/emoji_assets/eyes/normal.png','../images/emoji_assets/eyes/rolling.png','../images/emoji_assets/eyes/winking.png'),
+    array('../images/emoji_assets/mouth/open.png','../images/emoji_assets/mouth/sad.png','../images/emoji_assets/mouth/smiling.png','../images/emoji_assets/mouth/straight.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/mouth/teeth.png'),
+    array('../images/emoji_assets/skin/green.png','../images/emoji_assets/skin/red.png','../images/emoji_assets/skin/yellow.png')
+);
+
+$medium_random_list = array(
+    array(),
+    array(),
+    array(),
+    array(),
+    array(),
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +81,43 @@ $simple_image_list = array(
                             </div>
                         </div>
                     <?php elseif ($complexity === 'medium'): ?>
+                        <div id="game-square" class="hidden">
+                                <?php for ($z = 0; $z <= 4; $z++) : ?>
+                                    <?php $emoji_eyes = $medium_image_list[0][rand(0,sizeof($medium_image_list[0])-1)]  ?>
+                                    <?php $emoji_mouth = $medium_image_list[1][rand(0,sizeof($medium_image_list[1]) -1)]  ?> 
+                                    <?php $emoji_skin = $medium_image_list[2][rand(0,sizeof($medium_image_list[2]) -1)]  ?>
+                                    <?php $medium_random_list[$z][0] = $emoji_eyes ?>
+                                    <?php $medium_random_list[$z][1] = $emoji_mouth ?> 
+                                    <?php $medium_random_list[$z][2] = $emoji_skin ?>
+                                <?php endfor; ?>
+                            <div class="scoreboard">
+                                <p>
+                                    Score:
+                                    <br>
+                                    Time:
+                                </p>
+                            </div>
+                            <div id="game-board">    
+                                <?php for ($y = 0; $y <= 1; $y++) : ?>
+                                    <?php foreach ($medium_random_list as $image) : ?>
+                                        <div class="game-card-container">
+                                            <div class="game-card">
+                                                <div class="front">
+                                                    <img src="../images/q_mark.png">
+                                                </div>
+                                                <div class="back">
+                                                    <div class="image-wrapper">
+                                                        <img src="<?php echo $image[2]; ?>" class="overlayImage skin">
+                                                        <img src="<?php echo $image[1]; ?>" class="overlayImage mouth">
+                                                        <img src="<?php echo $image[0]; ?>" class="overlayImage eyes">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
                     <?php else: ?>
                     <?php endif; ?>
                 <?php else : ?>
