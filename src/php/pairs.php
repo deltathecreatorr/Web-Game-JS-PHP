@@ -2,6 +2,8 @@
 
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 $complexity = $_COOKIE['avatar_complexity'];
+$bestscore = $_COOKIE['best_score'];
+
 
 $simple_image_list = array(
     array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
@@ -22,6 +24,36 @@ $medium_random_list = array(
     array(),
     array(),
 );
+
+$_SESSION['current_level'] = 1;
+$complex_card_amount = array(3, 4, 5);
+$complex_card_match = array(2, 3, 4);
+
+function complex_create_emojis($amount, $match, $image_list){
+
+    $random_list = array();
+
+    for ($j = 0; $j < count($amount); $j++){
+
+        $random_list[$j] = array();
+
+        for ($k = 0; $k < $amount[$j]; $k++){
+            $emoji_eyes = $image_list[0][rand(0,sizeof($image_list[0])-1)];
+            $emoji_mouth = $image_list[1][rand(0,sizeof($image_list[1]) -1)];
+            $emoji_skin = $image_list[2][rand(0,sizeof($image_list[2]) -1)];
+
+            $emoji_set = array($emoji_eyes, $emoji_mouth, $emoji_skin);
+            
+            for ($l = 0; $l < $match[$j]; $l++){
+                $random_list[$j][] = $emoji_set;
+            }
+        }
+    }
+
+    return $random_list;
+}
+
+$complex_random_list = complex_create_emojis($complex_card_amount, $complex_card_match, $medium_image_list);
 
 ?>
 
@@ -52,6 +84,7 @@ $medium_random_list = array(
             <div class="start-game-area">
                 <?php if ($register_set) : ?>
                     <button id="remove-button" type="button" class="btn btn-warning">Start the game</button>
+                    <?php echo "<script> var complexity ='" .$complexity."';</script>"; ?>
                     <?php if ($complexity === 'simple') : ?>
                         <div id="game-square" class="hidden">
                             <div class="scoreboard">
@@ -120,6 +153,38 @@ $medium_random_list = array(
                             </div>
                         </div>
                     <?php else: ?>
+                        <?php echo "<script> var current_level = " . $_SESSION['current_level'] . ";</script>";  ?>
+                        <?php echo "<script> var bestscore =" .$bestscore.";</script>"; ?>
+                        <?php echo "<script> var complex_random_array = " . json_encode($complex_random_list) . ";</script>"; ?>
+                        <?php echo "<script> var complex_match_array = " . json_encode($complex_card_match) . ";</script>"; ?>
+                        <div id="game-square" class="hidden">
+                            <div class="scoreboard">
+                                <p id="score">
+                                    Score: 
+                                </p>
+                                <p id="time">
+                                    Time:
+                                </p>
+                            </div>
+                            <div id="game-board">
+                                <?php foreach ($complex_random_list[$_SESSION['current_level'] - 1] as $image) : ?>
+                                    <div class="game-card-container">
+                                        <div class="game-card">
+                                            <div class="front">
+                                                <img src="../images/q_mark.png">
+                                            </div>
+                                            <div class="back">
+                                                <div class="image-wrapper">
+                                                    <img src="<?php echo $image[2]; ?>" class="overlayImage skin">
+                                                    <img src="<?php echo $image[1]; ?>" class="overlayImage mouth">
+                                                    <img src="<?php echo $image[0]; ?>" class="overlayImage eyes">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
                     <?php endif; ?>
                 <?php else : ?>
                     <?php header('Location: registration.php'); ?>
