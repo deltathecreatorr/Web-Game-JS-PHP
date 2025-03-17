@@ -1,16 +1,22 @@
+
 .game-page {
-    background-color: white !important;
+    background-image: url("../../images/arcade-unsplash.jpg") !important; 
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
     height: 100%;
 }
 
 .start-game-area {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: gray;
     border: 5px solid transparent;
     box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px 5px;
-    width: 900px;
-    height: 750px;
+    width: 90%;
+    height: 85%;
     margin-top: 50px;
     padding-top: 20px;
 }

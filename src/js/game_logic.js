@@ -77,6 +77,8 @@ $(document).ready(function(){
         }
         if (score > bestscore){
             $("#game-board").css("background-color", '#FFD700');
+        } else {
+            $("#game-board").css("background-color", 'gray');
         }
 
         $(".scoreboard #score").html('Score: ' + score);
