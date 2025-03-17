@@ -1,15 +1,133 @@
-.game_page {
-    background-color: gray !important;
+.game-page {
+    background-color: white !important;
     background-size: cover;
     height: 100%;
 }
 
-.game_area {
+.start-game-area {
     display: block;
-    background-color: lightblue;
+    background-color: gray;
     border: 5px solid transparent;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    width: 600px;
-    height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px 5px;
+    width: 900px;
+    height: 750px;
     margin-top: 50px;
+    padding-top: 20px;
 }
+
+#game-board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.game-card-container {
+    width: 100px;
+    height: 100px;
+    border: 5px solid transparent;
+    margin: 20px 20px 20px 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 5px 5px 5px 5px;
+    background-color: darkgoldenrod;
+    position: relative;
+    perspective: 800px;
+    border-radius: 25%;
+    overflow: hidden;
+}
+
+.game-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.game-card div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    backface-visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlayImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.game-card .front,
+.game-card .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-card .front img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.game-card .front {
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+.game-card .back {
+    transform: rotateY(180deg);
+    z-index: 1;
+}
+
+.game-card.flipped {
+    transform: rotateY( 180deg );
+}
+
+.scoreboard-container {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.scoreboard {
+    margin: 0 auto;
+    width: 200px;
+    height: 50px;
+    border: 1px solid black;
+    background-color: darkgoldenrod;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 1px 1px;
+}
+
+.scoreboard p {
+    margin: 0 auto;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+
+

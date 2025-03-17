@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $complexity = $_POST['avatar_complexity'];
     $registered = false;
+    $best_score = 0;
 
     $error = " ";
     if (!ctype_alpha($username)) {
@@ -16,10 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['username'] = $username;
         $_SESSION['avatar_complexity'] = $complexity;
         $_SESSION['registered'] = $registered;
+        $_SESSION['best_score'] = $best_score;
 
         setcookie('username', $username, time() + (86400*30), "/");
         setcookie('avatar_complexity', $complexity, time() + (86400*30), "/");
         setcookie('registered', $registered, time() + (86400*30), "/");
+        setcookie('best_score', $best_score, time() + (86400*30), "/");
 
         header('Location: pairs.php');
         exit;
@@ -37,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Landing Page</title>
+    <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="../css/page.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/centered.css">
