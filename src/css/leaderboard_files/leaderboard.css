@@ -1,16 +1,16 @@
 .leaderboard-container {
-    background-color: gray;
+    display: block;
+    margin: 0 auto;   
+    background-color: rgba(red, green, blue, 0);
     padding: 20px;
-    margin-top: 50px;
     width: 90%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 th  {

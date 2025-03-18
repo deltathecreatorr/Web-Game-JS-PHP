@@ -3,7 +3,26 @@
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 $complexity = $_COOKIE['avatar_complexity'];
 $username = $_COOKIE['username'];
-$bestscore = $_COOKIE['best_score'];
+
+include 'connection.php';
+
+$tablename = "scores_" . strtolower($complexity);
+
+$query = "SELECT username FROM $tablename where username = '$username'";
+$result = $connection -> query($query);
+
+$best_score = 0;
+
+if ($result && $result -> num_rows > 0) {
+    $row = $result -> fetch_assoc();
+    if ($complexity === "complex") {
+        $best_score = $row['total_score'];
+    } else {
+        $best_score = $row['level1'];
+    }
+} else {
+    $best_score = 0;
+}
 
 $simple_image_list = array(
     array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
@@ -85,6 +104,7 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
                 <div class="start-game-area">
                     <?php if ($register_set) : ?>
                         <?php echo "<script> var username ='" .$username."';</script>"; ?>
+                        <?php echo "<script> var best_score ='" .$best_score."';</script>"; ?>
                         <button id="remove-button" type="button" class="btn btn-warning">Start the game</button>
                         <?php echo "<script> var complexity ='" .$complexity."';</script>"; ?>
                         <?php if ($complexity === 'simple') : ?>
@@ -156,7 +176,6 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
                             </div>
                         <?php else: ?>
                             <?php echo "<script> var current_level = " . $_SESSION['current_level'] . ";</script>";  ?>
-                            <?php echo "<script> var bestscore =" .$bestscore.";</script>"; ?>
                             <?php echo "<script> var complex_random_array = " . json_encode($complex_random_list) . ";</script>"; ?>
                             <?php echo "<script> var complex_match_array = " . json_encode($complex_card_match) . ";</script>"; ?>
                             <div id="game-square" class="hidden">

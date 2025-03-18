@@ -10,24 +10,44 @@ $(document).ready(function(){
     var start_time, end_time, seconds = 0;
 
     function add_user(username, level1, level2, level3){
-        const data = {
-            username: username,
-            level1: level1,
-            level2: level2,
-            level3: level3
-        };
-    
-        fetch('add_user.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.text())
-        .then(() => {
-            window.location.reload();
-        });
+        if (complexity === "complex"){
+            const data = {
+                username: username,
+                level1: level1,
+                level2: level2,
+                level3: level3
+            };
+        
+            fetch('add_user.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(() => {
+                window.location.reload();
+            });
+        } else {
+            const data = {
+                username: username,
+                level1: level1
+            };
+        
+            fetch('add_user.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(() => {
+                window.location.reload();
+            });
+        }
+        
     }
 
     function start_timer () {

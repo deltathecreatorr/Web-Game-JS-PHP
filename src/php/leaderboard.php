@@ -2,11 +2,17 @@
 
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 $complexity = $_COOKIE['avatar_complexity'];
-$bestscore = $_COOKIE['best_score'];
 
 include 'connection.php';
 
-$query = "SELECT * FROM scores ORDER BY total_score DESC";
+$tablename = "scores_" . strtolower($complexity);
+
+if ($complexity === 'complex'){
+    $query = "SELECT * FROM $tablename ORDER BY total_score DESC";
+} else {
+    $query = "SELECT * FROM $tablename ORDER BY level1 DESC";
+}
+
 $result = $connection -> query($query);
 
 $leaderboard_data = [];
@@ -46,8 +52,8 @@ if ($result -> num_rows > 0) {
                             <?php if ($complexity === 'complex') { ?>
                                 <th> Level 2 </th>
                                 <th> Level 3 </th>
+                                <th> Total Score </th>
                             <?php } ?>
-                            <th> Total Score </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,14 +61,14 @@ if ($result -> num_rows > 0) {
                         
                         foreach ($leaderboard_data as $user){
                             echo "<tr>
-                                    <td> {$user['username']} </td>
-                                    <td> {$user['level1']} </td>";
+                                    <td> {$user['username']} </td>";
                             if ($complexity === 'complex') {
+                                echo "<td> {$user['level1']} </td>";
                                 echo "<td> {$user['level2']} </td>";
                                 echo "<td> {$user['level3']} </td>";
                                 echo "<td> {$user['total_score']} </td>";
                             } else {
-                                echo "<td> {$user['total_score']} </td>";
+                                echo "<td> {$user['level1']} </td>";
                             }
                             
                             echo "</tr>";
