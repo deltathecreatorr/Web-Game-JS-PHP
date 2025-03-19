@@ -1,83 +1,79 @@
 <?php
 
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
+$complexity = $_COOKIE['avatar_complexity'];
+$username = $_COOKIE['username'];
 
-if ($register_set) {
-    $complexity = $_COOKIE['avatar_complexity'];
-    $username = $_COOKIE['username'];
+include 'connection.php';
 
-    include 'connection.php';
+$tablename = "scores_" . strtolower($complexity);
 
-    $tablename = "scores_" . strtolower($complexity);
+$query = "SELECT username FROM $tablename where username = '$username'";
+$result = $connection -> query($query);
 
-    $query = "SELECT username FROM $tablename where username = '$username'";
-    $result = $connection -> query($query);
+$best_score = 0;
 
-    $best_score = 0;
-
-    if ($result && $result -> num_rows > 0) {
-        $row = $result -> fetch_assoc();
-        if ($complexity === "complex") {
-            $best_score = $row['total_score'];
-        } else {
-            $best_score = $row['level1'];
-        }
+if ($result && $result -> num_rows > 0) {
+    $row = $result -> fetch_assoc();
+    if ($complexity === "complex") {
+        $best_score = $row['total_score'];
     } else {
-        $best_score = 0;
+        $best_score = $row['level1'];
     }
+} else {
+    $best_score = 0;
+}
 
-    $simple_image_list = array(
-        array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
-        array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
-        array('../images/emoji_assets/eyes/winking.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
-    );
+$simple_image_list = array(
+    array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
+    array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
+    array('../images/emoji_assets/eyes/winking.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
+);
 
-    $medium_image_list = array(
-        array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/eyes/long.png','../images/emoji_assets/eyes/normal.png','../images/emoji_assets/eyes/rolling.png','../images/emoji_assets/eyes/winking.png'),
-        array('../images/emoji_assets/mouth/open.png','../images/emoji_assets/mouth/sad.png','../images/emoji_assets/mouth/smiling.png','../images/emoji_assets/mouth/straight.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/mouth/teeth.png'),
-        array('../images/emoji_assets/skin/green.png','../images/emoji_assets/skin/red.png','../images/emoji_assets/skin/yellow.png')
-    );
+$medium_image_list = array(
+    array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/eyes/long.png','../images/emoji_assets/eyes/normal.png','../images/emoji_assets/eyes/rolling.png','../images/emoji_assets/eyes/winking.png'),
+    array('../images/emoji_assets/mouth/open.png','../images/emoji_assets/mouth/sad.png','../images/emoji_assets/mouth/smiling.png','../images/emoji_assets/mouth/straight.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/mouth/teeth.png'),
+    array('../images/emoji_assets/skin/green.png','../images/emoji_assets/skin/red.png','../images/emoji_assets/skin/yellow.png')
+);
 
-    $medium_random_list = array(
-        array(),
-        array(),
-        array(),
-        array(),
-        array(),
-    );
+$medium_random_list = array(
+    array(),
+    array(),
+    array(),
+    array(),
+    array(),
+);
 
-    $_SESSION['current_level'] = 1;
-    $complex_card_amount = array(3, 4, 5);
-    $complex_card_match = array(2, 3, 4);
+$_SESSION['current_level'] = 1;
+$complex_card_amount = array(3, 4, 5);
+$complex_card_match = array(2, 3, 4);
 
-    function complex_create_emojis($amount, $match, $image_list){
+function complex_create_emojis($amount, $match, $image_list){
 
-        $random_list = array();
+    $random_list = array();
 
-        for ($j = 0; $j < count($amount); $j++){
+    for ($j = 0; $j < count($amount); $j++){
 
-            $random_list[$j] = array();
+        $random_list[$j] = array();
 
-            for ($k = 0; $k < $amount[$j]; $k++){
-                $emoji_eyes = $image_list[0][rand(0,sizeof($image_list[0])-1)];
-                $emoji_mouth = $image_list[1][rand(0,sizeof($image_list[1]) -1)];
-                $emoji_skin = $image_list[2][rand(0,sizeof($image_list[2]) -1)];
+        for ($k = 0; $k < $amount[$j]; $k++){
+            $emoji_eyes = $image_list[0][rand(0,sizeof($image_list[0])-1)];
+            $emoji_mouth = $image_list[1][rand(0,sizeof($image_list[1]) -1)];
+            $emoji_skin = $image_list[2][rand(0,sizeof($image_list[2]) -1)];
 
-                $emoji_set = array($emoji_eyes, $emoji_mouth, $emoji_skin);
-                
-                for ($l = 0; $l < $match[$j]; $l++){
-                    $random_list[$j][] = $emoji_set;
-                }
+            $emoji_set = array($emoji_eyes, $emoji_mouth, $emoji_skin);
+            
+            for ($l = 0; $l < $match[$j]; $l++){
+                $random_list[$j][] = $emoji_set;
             }
         }
-
-        return $random_list;
     }
 
-    $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card_match, $medium_image_list);
-} else {
-    header('registration.php');
+    return $random_list;
 }
+
+$complex_random_list = complex_create_emojis($complex_card_amount, $complex_card_match, $medium_image_list);
+
 ?>
 
 <!DOCTYPE html>
