@@ -8,8 +8,12 @@ include 'connection.php';
 
 $tablename = "scores_" . strtolower($complexity);
 
-$query = "SELECT username FROM $tablename where username = '$username'";
-$result = $connection -> query($query);
+
+if ($complexity === "complex") {
+    $query = "SELECT total_score FROM $tablename WHERE username = '$username'";
+} else {
+    $query = "SELECT level1 FROM $tablename WHERE username = '$username'";
+}
 
 $best_score = 0;
 
@@ -104,7 +108,7 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
                 <div class="start-game-area">
                     <?php if ($register_set) : ?>
                         <?php echo "<script> var username ='" .$username."';</script>"; ?>
-                        <?php echo "<script> var best_score ='" .$best_score."';</script>"; ?>
+                        <?php echo "<script> var bestscore ='" .$best_score."';</script>"; ?>
                         <button id="remove-button" type="button" class="btn btn-warning">Start the game</button>
                         <?php echo "<script> var complexity ='" .$complexity."';</script>"; ?>
                         <?php if ($complexity === 'simple') : ?>
