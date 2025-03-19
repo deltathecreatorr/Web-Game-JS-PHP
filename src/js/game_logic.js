@@ -79,8 +79,8 @@ $(document).ready(function(){
                 end_timer();
             } 
         } else {
-            score = score - (attempts * 2) - (seconds * 2)
-            if (attempts > 30){
+            score = score - (attempts) - (seconds * 2)
+            if (attempts > 20){
                 $(".game-card").off('click');
                 final_score();
                 end_timer();

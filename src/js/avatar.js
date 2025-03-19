@@ -76,22 +76,22 @@ $(document).ready(function() {
         });
     }
 
-    $('#registration-form').submit(function(event) {
+    $('#registration_form').submit(function(event) {
         event.preventDefault();
     
         const complexity = $('#avatar_complexity').val();
     
-        let avatarConfig;
+        let avatar_config;
         if (complexity === 'medium') {
             const currentAvatar = medium_avatar_list[currentIndex];
-            avatarConfig = {
+            avatar_config = {
                 complexity: complexity,
                 skin: currentAvatar[2],
                 mouth: currentAvatar[1], 
                 eyes: currentAvatar[0], 
             };
         } else if (complexity === 'complex') {
-            avatarConfig = {
+            avatar_config = {
                 complexity: complexity,
                 skin: complex_avatar_list[2][skinIndex],
                 mouth: complex_avatar_list[1][mouthIndex],
@@ -99,7 +99,7 @@ $(document).ready(function() {
             };
         } else {
             
-            avatarConfig = {
+            avatar_config = {
                 complexity: complexity,
                 skin: '<?php echo $simple_avatar_list[2]; ?>',
                 mouth: '<?php echo $simple_avatar_list[1]; ?>',
@@ -107,9 +107,9 @@ $(document).ready(function() {
             };
         }
 
-        document.cookie = `avatarConfig=${JSON.stringify(avatarConfig)}; path=/; max-age=${86400 * 30};`;
-    
-        window.location.href = 'pairs.php';
+        document.cookie = `avatar_config=${JSON.stringify(avatar_config)}; path=/; max-age=${86400 * 30};`;
+        this.submit();
+
     });
 
 });

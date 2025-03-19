@@ -98,9 +98,7 @@ $complex_avatar_list = array(
     <?php include 'partials/navbar.php'; ?>
     <script> const medium_avatar_list = <?php echo json_encode($medium_avatar_list); ?> </script>
     <script> const complex_avatar_list = <?php echo json_encode($complex_avatar_list); ?> </script>
-
     <script src="../js/avatar.js"></script>
-
     <div class="main">
         <h1 style="color: white; padding: 0px 20px; padding-top: 20px; font-weight: bold;">Registration</h1>
         <form id="registration_form" action="registration.php" method="POST">
@@ -126,7 +124,7 @@ $complex_avatar_list = array(
                     <div class="centered">
                         <h1> Default Avatar </h1>
                         <div class="image-wrapper">
-                            <img src="<?php echo $simple_avatar_list[2]; ?>" class="overlayImage skin">
+                            <img src="<?php echo $simple_avatar_list[2]; ?>" lass="overlayImage skin">
                             <img src="<?php echo $simple_avatar_list[1]; ?>" class="overlayImage mouth">
                             <img src="<?php echo $simple_avatar_list[0]; ?>" class="overlayImage eyes">
                         </div>
@@ -142,7 +140,6 @@ $complex_avatar_list = array(
             </div>
         </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

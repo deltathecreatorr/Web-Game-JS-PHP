@@ -15,6 +15,7 @@ if ($complexity === "complex") {
     $query = "SELECT level1 FROM $tablename WHERE username = '$username'";
 }
 
+$result = $connection->query($query);
 $best_score = 0;
 
 if ($result && $result -> num_rows > 0) {
