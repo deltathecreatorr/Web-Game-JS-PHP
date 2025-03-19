@@ -1,0 +1,24 @@
+.image-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlayImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.avatar_section {
+    display: none;
+    color: white;
+    margin-top: 70px;
+}
