@@ -98,12 +98,11 @@ $(document).ready(function() {
                 eyes: complex_avatar_list[0][eyeIndex], 
             };
         } else {
-            
             avatar_config = {
                 complexity: complexity,
-                skin: '<?php echo $simple_avatar_list[2]; ?>',
-                mouth: '<?php echo $simple_avatar_list[1]; ?>',
-                eyes: '<?php echo $simple_avatar_list[0]; ?>', 
+                skin: simple_avatar_list[2],
+                mouth: simple_avatar_list[1],
+                eyes: simple_avatar_list[0]
             };
         }
 

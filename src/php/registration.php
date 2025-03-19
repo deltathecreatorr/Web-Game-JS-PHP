@@ -96,6 +96,7 @@ $complex_avatar_list = array(
 
 <body>
     <?php include 'partials/navbar.php'; ?>
+    <script> const simple_avatar_list = <?php echo json_encode($simple_avatar_list); ?> </script>
     <script> const medium_avatar_list = <?php echo json_encode($medium_avatar_list); ?> </script>
     <script> const complex_avatar_list = <?php echo json_encode($complex_avatar_list); ?> </script>
     <script src="../js/avatar.js"></script>
