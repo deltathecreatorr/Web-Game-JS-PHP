@@ -1,13 +1,54 @@
 
-
 $(document).ready(function(){
 
     let attempts = 0;
     let score = 200;
     let checking = false;
     let flipped_cards = [];
+    let level_points = [];
 
     var start_time, end_time, seconds = 0;
+
+    function add_user(username, level1, level2, level3){
+        if (complexity === "complex"){
+            const data = {
+                username: username,
+                level1: level1,
+                level2: level2,
+                level3: level3
+            };
+        
+            fetch('add_user.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(() => {
+                window.location.reload();
+            });
+        } else {
+            const data = {
+                username: username,
+                level1: level1
+            };
+        
+            fetch('add_user.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(() => {
+                window.location.reload();
+            });
+        }
+        
+    }
 
     function start_timer () {
         start_time = new Date();
@@ -38,8 +79,8 @@ $(document).ready(function(){
                 end_timer();
             } 
         } else {
-            score = score - (attempts * 2) - (seconds * 2)
-            if (attempts > 30){
+            score = score - (attempts) - (seconds * 2)
+            if (attempts > 20){
                 $(".game-card").off('click');
                 final_score();
                 end_timer();
@@ -48,6 +89,14 @@ $(document).ready(function(){
 
         if (score < 0) {
             score = 0;
+        }
+
+        if (complexity === 'complex'){
+            if (score > bestscore){
+                $(".start-game-area").css("background-color", '#FFD700');
+            } else {
+                $(".start-game-area").css("background-color", 'gray');
+            }
         }
     };
 
@@ -73,14 +122,11 @@ $(document).ready(function(){
             }
 
             score = score + points;
-            
+            if (complexity === 'complex'){
+                level_points.push(points);
+            }
         }
-        if (score > bestscore){
-            $("#game-board").css("background-color", '#FFD700');
-        } else {
-            $("#game-board").css("background-color", 'gray');
-        }
-
+        
         $(".scoreboard #score").html('Score: ' + score);
     };
 
@@ -98,13 +144,20 @@ $(document).ready(function(){
             $(".game-card").off('click');
             if (complexity === 'simple'){
                 final_score();
+                $('#game-square').append("<button id='submit-leaderboard' class='btn btn-warning' type='button'> Submit </button>");
             } else if (complexity === 'medium'){
                 end_timer();
                 final_score();
+                $('#game-square').append("<button id='submit-leaderboard' class='btn btn-warning' type='button'> Submit </button>");
             } else {
-                $('#game-square').append("<button id='next-level-button' class='btn btn-warning' type='button'> Next Level </button>");
                 end_timer();
                 final_score();
+
+                if (current_level < 3 ){
+                    $('#game-square').append("<button id='next-level-button' class='btn btn-warning' type='button'> Next Level </button>");
+                } else {
+                    $('#game-square').append("<button id='submit-leaderboard' class='btn btn-warning' type='button'> Submit </button>");
+                }
             }
             
         } else {
@@ -151,6 +204,16 @@ $(document).ready(function(){
             start_timer();
         }
     })
+
+    $(document).on('click', '#submit-leaderboard', function(){
+        if (complexity === 'complex'){
+            add_user(username, level_points[0], level_points[1], level_points[2]);
+        } else {
+            add_user(username, score, 0, 0);
+        }
+
+        level_points.length = 0;
+    });
 
     function check_cards() {
         if (complexity === 'complex' && complex_match_array[current_level - 1] > 2) {
@@ -278,6 +341,7 @@ $(document).ready(function(){
 
         if (current_level - 1 >= complex_list.length) {
             alert("You have completed all levels");
+            $('#game-square').append("<button id='submit-leaderboard' class='btn btn-warning' type='button'> Next Level </button>");
         } else {
             console.log("Level Generation")
             $('.scoreboard #score').html('Score: ' + score);
