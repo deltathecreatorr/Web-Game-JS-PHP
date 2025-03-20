@@ -2,23 +2,22 @@
 
 - **Navigation Bar (navbar.php)**
     - Links to the home page
-    - Changes depending on whether the user is registered, can only see leaderboard, game page and see avatar if registered.
+    - Changes if user is registered, can only see leaderboard, game page and see avatar if registered.
 
 - **Landing Page (index.php)**
-    - Prompts the user to log in if not registered, otherwise the user is given a button to press that takes them to game screen.
+    - Prompts the user to log in if not registered, otherwise user is given a button that takes them to game screen.
 
 - **Registration Page (registration.php)**
-    - Takes user input and allows the user to pick the complexity level.
-    - Also allows user to create their emoji depending on their complexity.
+    - User input and allows the user to pick the complexity level.
+    - Allows user to create their emoji depending on their complexity.
 
 - **Pairs Game (pairs.php)**
-    - Button to start the game.
     - Cards are generated and then shuffled.
     - **Simple** 
         - 6 cards, 3 pairs with each card having a card flip effect.
         - Score dependent on attempts.
     - **Medium** 
-        - 10 cards, 5 pairs with each card having a card flip effect.
+        - 10 cards, 5 pairs with cards having a card flip effect.
         - Getting a higher score is harder than simple.
         - Score dependent on attempts and time.
     - **Complex** 
@@ -35,8 +34,8 @@
     - Score updates if score is better than last score.
 
 **Important**
-The game should be visible at the link below if the VM is turned on, however, if it is not please run the commands below and then click on the link.
-The Project files are also available on the Linux VM at /opt/lampp/htdocs/PHPWebGame.
+Game should be visible at the link below if VM is turned on, however, if not, run the commands below, then click on the link.
+Project files are available on the VM -> /opt/lampp/htdocs/PHPWebGame.
 
 ```
 sudo service apache2 stop
