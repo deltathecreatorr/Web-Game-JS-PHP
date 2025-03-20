@@ -2,8 +2,8 @@
 This game is an emoji matching game, where emojis are placed on the back of cards. The cards are matched in pairs, but can also be matched in 3s or 4s depending on the complexity.
 
 - **Navigation Bar (navbar.php)**
-    - Links to the home page and the game page.
-    - Changes depending on whether the user is registered, can only see leaderboard and see avatar if registered.
+    - Links to the home page
+    - Changes depending on whether the user is registered, can only see leaderboard, game page and see avatar if registered.
 
 - **Landing Page (index.php)**
     - Prompts the user to log in if not registered, otherwise the user is given a button to press that takes them to game screen.
