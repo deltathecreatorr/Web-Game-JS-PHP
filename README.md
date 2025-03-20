@@ -36,7 +36,7 @@
 
 **Important**
 The game should be visible at the link below if the VM is turned on, however, if it is not please run the commands below and then click on the link.
-The Project file are available on the Linux VM at /opt/lampp/htdocs/PHPWebGame.
+The Project files are also available on the Linux VM at /opt/lampp/htdocs/PHPWebGame.
 
 ```
 sudo service apache2 stop
