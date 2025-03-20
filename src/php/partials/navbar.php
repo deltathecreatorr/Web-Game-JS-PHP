@@ -55,7 +55,6 @@ if (isset($_COOKIE['avatar_config'])) {
         <?php else : ?>
             <!-- if not registered  -->
             <a href="registration.php">Register</a>
-            <a href="pairs.php" name="memory">Play Pairs</a>
         <?php endif; ?>
 
         <a href="javascript:void(0);" class="icon" onclick="navbar()"></a>
