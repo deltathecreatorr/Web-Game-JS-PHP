@@ -1,5 +1,4 @@
 # Web-Game-JS-PHP
-This game is an emoji matching game, where emojis are placed on the back of cards. The cards are matched in pairs, but can also be matched in 3s or 4s depending on the complexity.
 
 - **Navigation Bar (navbar.php)**
     - Links to the home page
@@ -35,6 +34,14 @@ This game is an emoji matching game, where emojis are placed on the back of card
     - Score shows for each level and the total score if complex.
     - Score updates if score is better than last score.
 
-Link:     
+**Important**
+The game should be visible at the link below if the VM is turned on, however, if it is not please run the commands below and then click on the link.
+
+```
+sudo service apache2 stop
+sudo /opt/lampp/lampp start
+```
+
+Link: https://ml-lab-4d78f073-aa49-4f0e-bce2-31e5254052c7.ukwest.cloudapp.azure.com:52087/PHPWebGame/Web-Game-JS-PHP-main/src/php/index.php
 
 
