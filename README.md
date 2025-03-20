@@ -24,15 +24,17 @@ This game is an emoji matching game, where emojis are placed on the back of card
         - Score dependent on attempts and time.
     - **Complex** 
         - 3 levels, 
-            - First level has 6 cards. 
-            - Second level has 12 cards. 
-            - Third level has 18 cards.
+            - First level, 6 cards. 
+            - Second level, 12 cards. 
+            - Third level, 18 cards.
         - Background of each level turns gold if the user beats their high score.
         - Score dependent on attempts and time.
 
 - **Leaderboard Page (leaderboard.php)**
-    - Has username and score displayed if the user had submitted their score from the game.
-    - Score shows for each level and the total score if complexity = complex.
+    - Username and score displayed if the user had submitted their score from the game.
+    - Score shows for each level and the total score if complex.
     - Score updates if score is better than last score.
+
+Link:     
 
 

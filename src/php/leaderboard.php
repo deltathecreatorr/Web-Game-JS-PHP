@@ -1,5 +1,4 @@
 <?php
-
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 $complexity = $_COOKIE['avatar_complexity'];
 
@@ -10,11 +9,14 @@ $tablename = "scores_" . strtolower($complexity);
 if ($complexity === 'complex'){
     $query = "SELECT * FROM $tablename ORDER BY total_score DESC";
 } else {
+    // table that is not complex only have id, level1 and username columns
     $query = "SELECT * FROM $tablename ORDER BY level1 DESC";
 }
 
+// mysqli connection to database
 $result = $connection -> query($query);
 
+// iterate through leaderboard data to fetch columns for database
 $leaderboard_data = [];
 if ($result -> num_rows > 0) {
     while ($row = $result -> fetch_assoc()) {
@@ -47,6 +49,7 @@ if ($result -> num_rows > 0) {
                 <table>
                     <thead>
                         <tr>
+                            <!-- Table headers -->
                             <th> Username </th>
                             <th> Level 1 </th>
                             <?php if ($complexity === 'complex') { ?>
@@ -57,6 +60,7 @@ if ($result -> num_rows > 0) {
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Iterate through all users in leaderboard and display rows depending on complexity -->
                         <?php
                         
                         foreach ($leaderboard_data as $user){

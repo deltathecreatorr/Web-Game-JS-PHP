@@ -1,5 +1,6 @@
 <?php
 
+// File to connect to mySQL database
 $host = 'localhost';
 $dbname = 'leaderboard_db';
 $dbuser = 'root';

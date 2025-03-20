@@ -2,12 +2,14 @@
 
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] == true;
 
+// Getting username is the user is registered
 if ($register_set) {
     $username = $_COOKIE['username'];
 } else {
     $username = '';
 }
 
+// Getting the emoji set by user in registration page
 if (isset($_COOKIE['avatar_config'])) {
     $avatar_config = json_decode($_COOKIE['avatar_config'], true);
 
@@ -36,7 +38,7 @@ if (isset($_COOKIE['avatar_config'])) {
 
         <a href="index.php" name="home" style="float: left">Home</a>
        
-        
+        <!-- Checking if user has been registered and changing navbar depending on registration -->
         <?php if ($register_set) : ?>
             <?php echo "
                 <div class='user-info'>
@@ -51,6 +53,7 @@ if (isset($_COOKIE['avatar_config'])) {
             <a href="leaderboard.php">Leaderboard</a>
             <a href="pairs.php" name="memory">Play Pairs</a>
         <?php else : ?>
+            <!-- if not registered  -->
             <a href="registration.php">Register</a>
             <a href="pairs.php" name="memory">Play Pairs</a>
         <?php endif; ?>

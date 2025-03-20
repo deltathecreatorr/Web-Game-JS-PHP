@@ -1,5 +1,6 @@
 <?php
 
+// start session and get cookie to see if user has registered
 session_start();
 $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true;
 
@@ -23,6 +24,7 @@ $register_set = isset($_COOKIE['registered']) && $_COOKIE['registered'] === true
     <?php include 'partials/navbar.php'; ?>
     <div class="main">
         <div class="index_page">
+            <!-- Change to play game button if the user has registered -->
             <h1> Welcome To Pairs </h1>
             <?php if ($register_set) : ?>
                 <a type="button" href="pairs.php" class="btn btn-primary btn-lg">Click here to play</a>

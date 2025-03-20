@@ -18,6 +18,7 @@ if ($complexity === "complex") {
 $result = $connection->query($query);
 $best_score = 0;
 
+// fetch the best score that is updated in the database for the user
 if ($result && $result -> num_rows > 0) {
     $row = $result -> fetch_assoc();
     if ($complexity === "complex") {
@@ -29,18 +30,21 @@ if ($result && $result -> num_rows > 0) {
     $best_score = 0;
 }
 
+// array of premade card images
 $simple_image_list = array(
     array('../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
     array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png'),
     array('../images/emoji_assets/eyes/winking.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/skin/yellow.png')
 );
 
+// sources of all images in emoji_assets
 $medium_image_list = array(
     array('../images/emoji_assets/eyes/closed.png','../images/emoji_assets/eyes/laughing.png','../images/emoji_assets/eyes/long.png','../images/emoji_assets/eyes/normal.png','../images/emoji_assets/eyes/rolling.png','../images/emoji_assets/eyes/winking.png'),
     array('../images/emoji_assets/mouth/open.png','../images/emoji_assets/mouth/sad.png','../images/emoji_assets/mouth/smiling.png','../images/emoji_assets/mouth/straight.png','../images/emoji_assets/mouth/surprise.png','../images/emoji_assets/mouth/teeth.png'),
     array('../images/emoji_assets/skin/green.png','../images/emoji_assets/skin/red.png','../images/emoji_assets/skin/yellow.png')
 );
 
+// array to append all random cards made dynamically
 $medium_random_list = array(
     array(),
     array(),
@@ -49,16 +53,18 @@ $medium_random_list = array(
     array(),
 );
 
+// current_level session variable is updated when player moves to next level in complex
 $_SESSION['current_level'] = 1;
+// number of cards being generated per each level
 $complex_card_amount = array(3, 4, 5);
 $complex_card_match = array(2, 3, 4);
 
 function complex_create_emojis($amount, $match, $image_list){
-
+    // creates emojis for complex level
     $random_list = array();
 
     for ($j = 0; $j < count($amount); $j++){
-
+        // iterate through all elements in a list to create a 2D array holding all levels underneath one list
         $random_list[$j] = array();
 
         for ($k = 0; $k < $amount[$j]; $k++){
@@ -93,6 +99,7 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
     <link rel="stylesheet" type="text/css" href="../css/centered.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/pairs_page/game_page.css">
+    <!-- Importing bootstrap and jquery -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -108,11 +115,13 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
             <div class="centered">
                 <div class="start-game-area">
                     <?php if ($register_set) : ?>
+                        <!-- Pass username and best score for user to javascript file so they can be updated dynamically  -->
                         <?php echo "<script> var username ='" .$username."';</script>"; ?>
                         <?php echo "<script> var bestscore ='" .$best_score."';</script>"; ?>
                         <button id="remove-button" type="button" class="btn btn-warning">Start the game</button>
                         <?php echo "<script> var complexity ='" .$complexity."';</script>"; ?>
                         <?php if ($complexity === 'simple') : ?>
+                            <!-- Grey Board cards are on -->
                             <div id="game-square" class="hidden">
                                 <div class="scoreboard">
                                     <p id="score">
@@ -124,6 +133,7 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
                                         <?php foreach ($simple_image_list as $preset) : ?>
                                             <div class="game-card-container">
                                                 <div class="game-card">
+                                                    <!-- Card class needs two divs, front and back for flip animation -->
                                                     <div class="front">
                                                         <img src="../images/q_mark.png">
                                                     </div>
@@ -180,6 +190,7 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
                                 </div>
                             </div>
                         <?php else: ?>
+                            <!-- Pass current_level and complex array to javascript to update dynamically -->
                             <?php echo "<script> var current_level = " . $_SESSION['current_level'] . ";</script>";  ?>
                             <?php echo "<script> var complex_random_array = " . json_encode($complex_random_list) . ";</script>"; ?>
                             <?php echo "<script> var complex_match_array = " . json_encode($complex_card_match) . ";</script>"; ?>
@@ -213,6 +224,7 @@ $complex_random_list = complex_create_emojis($complex_card_amount, $complex_card
                             </div>
                         <?php endif; ?>
                     <?php else : ?>
+                        <!-- If user is not registered and tries to play the game, the user is taken to registration page again -->
                         <?php header('Location: registration.php'); ?>
                     <?php endif; ?>
                 </div>

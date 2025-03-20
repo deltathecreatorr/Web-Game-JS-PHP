@@ -1,23 +1,29 @@
 
 $(document).ready(function(){
+    // load functions once document is ready using jquery
 
-    let attempts = 0;
-    let score = 200;
-    let checking = false;
-    let flipped_cards = [];
-    let level_points = [];
+    let attempts = 0; // attempts that user takes to match
+    let score = 200; // default score, which is updated depending on attempts and time
+    let checking = false; // checking if cards are currently matching
+    let flipped_cards = []; // list to store the number of flipped card, the max size of the list can be 
+                            // changed depending on the complexity of the object
+    let level_points = []; // list to store the number of points that the user has on each level for complex complexity
 
-    var start_time, end_time, seconds = 0;
+    var start_time, end_time, seconds = 0; // time variables which are updated when the user starts the game
+
 
     function add_user(username, level1, level2, level3){
+        // function to add the user into the database by sending a post request to add_user.php
         if (complexity === "complex"){
+            // if complex, the user sends the scores for all three levels
             const data = {
                 username: username,
                 level1: level1,
                 level2: level2,
                 level3: level3
             };
-        
+            
+            // sending a post request to add the user
             fetch('add_user.php', {
                 method: 'POST',
                 headers: {
@@ -30,6 +36,7 @@ $(document).ready(function(){
                 window.location.reload();
             });
         } else {
+            // else, the user only needs to send the score for level1
             const data = {
                 username: username,
                 level1: level1
@@ -51,28 +58,33 @@ $(document).ready(function(){
     }
 
     function start_timer () {
+        // start the timer by getting the current time
         start_time = new Date();
     }
 
     function end_timer() {
+        // end the timer by getting the new current time and then calculating the difference between events to see the seconds elapsed
         end_time = new Date();
         var difference = end_time - start_time;
 
         difference /= 1000;
 
         seconds = Math.round(difference);
+        // update the scorebaord with the time
         $('.scoreboard #time').html('Time: ' + seconds);
     }
 
     function update_score(){
+        // function to update the scoreboard based on complexity
         if (complexity === 'simple'){
             score = score - (attempts * 2)
             if (attempts > 10){
+                // if the attempts passes a certain point, the user should not be able to click on more cards and the game would end
                 $(".game-card").off('click');
                 final_score();
             }
         } else if (complexity === 'medium'){
-            score = score - ((attempts * 2) + (seconds))
+            score = score - ((attempts * 2) + (seconds)) // score for each complexity is different
             if (attempts > 20){
                 $(".game-card").off('click');
                 final_score();
@@ -91,6 +103,7 @@ $(document).ready(function(){
             score = 0;
         }
 
+        // if the user has a new high score, update the game area to gold
         if (complexity === 'complex'){
             if (score > bestscore){
                 $(".start-game-area").css("background-color", '#FFD700');
@@ -101,6 +114,8 @@ $(document).ready(function(){
     };
 
     function final_score() {
+        // the function to calculate the final score
+        // depending on attempts, the final score is adjusted
         let points = 0;
         if (attempts < 10) {
             points = 50;
@@ -110,6 +125,7 @@ $(document).ready(function(){
             points = 0;
         }
 
+        // if the complexity is not simple, the score also depends on the time
         if (complexity === 'simple'){
             score = score + points;
         } else {
@@ -127,10 +143,12 @@ $(document).ready(function(){
             }
         }
         
+        // update the score
         $(".scoreboard #score").html('Score: ' + score);
     };
 
     function check_win(){
+        // function to check if all cards are matched
         var allmatched = true;
 
         $(".game-card").each(function(){
@@ -141,6 +159,7 @@ $(document).ready(function(){
         });
 
         if (allmatched) {
+            // if all the cards matched, a submit button needs to be added
             $(".game-card").off('click');
             if (complexity === 'simple'){
                 final_score();
@@ -166,10 +185,12 @@ $(document).ready(function(){
     };
 
     function display_cards() {
+        // remove the hidden cards
         $('#game-square').removeClass('hidden');
     };
 
     $(document).on('click','.game-card', function(){
+        // jquery event listener to check for card clicks on the cards
         if ( checking || $(this).hasClass('flipped') || $(this).hasClass('matched')){
             return;
         }
@@ -177,6 +198,7 @@ $(document).ready(function(){
         $(this).addClass('flipped');
         flipped_cards.push($(this));
 
+        // if cards are being checked time out the cards, so there are no more cards being added to the list
         if (complexity !== 'complex') {
             if (flipped_cards.length === 2) {
                 checking = true;
@@ -195,6 +217,7 @@ $(document).ready(function(){
 
     })
 
+    // event listener for the remove button, then call the display_cards function
     $('#remove-button').on('click', function(){
         $('#remove-button').remove();
         if (complexity === 'simple'){
@@ -205,7 +228,9 @@ $(document).ready(function(){
         }
     })
 
+    // event listener for the submit leaderboard button
     $(document).on('click', '#submit-leaderboard', function(){
+        // add user to the database and pass the point for each level
         if (complexity === 'complex'){
             add_user(username, level_points[0], level_points[1], level_points[2]);
         } else {
@@ -216,6 +241,9 @@ $(document).ready(function(){
     });
 
     function check_cards() {
+        // function to check if cards are matching
+        // if complex, iterate through the flipped_cards list
+        // emojis are compared by checking the img sources
         if (complexity === 'complex' && complex_match_array[current_level - 1] > 2) {
             if (flipped_cards.length === complex_match_array[current_level - 1]) {
                 attempts++;
@@ -249,6 +277,7 @@ $(document).ready(function(){
                         }
                 }
                 
+                //  if cards match, check if the user has won, and empty the flipped_cards list and update the checking value
                 if (match === true){
                     console.log("Match Found");
                     flipped_cards.forEach((card_in_list) => {
@@ -274,6 +303,7 @@ $(document).ready(function(){
                     
 
         } else {
+            // if complexity, cards aer checked only for two
             var first_card = flipped_cards[0];
             var second_card = flipped_cards[1];
 
@@ -313,6 +343,7 @@ $(document).ready(function(){
         }
     }
 
+    // shuffle the cards by passing all the cards in an array and randomizing positions and then return the shuffled array
     function shuffle(array) {
         for (let i = array.length - 1; i >= 0; i--){
             const j = Math.floor(Math.random() * (i + 1));
@@ -321,12 +352,13 @@ $(document).ready(function(){
         return array;
     }
     
-
+    // function to start a new level for the complex complexity
     function new_level(complex_list){
         console.log("New Level");
         current_level += 1;
-
+        // using ajax to update the level without completely reloading the page
         $.ajax({
+            // post request sent to server to update the level
             url: 'update_level.php',
             method: 'POST',
             data: { current_level: current_level},
@@ -340,6 +372,7 @@ $(document).ready(function(){
         });
 
         if (current_level - 1 >= complex_list.length) {
+            // check if there are anymore levels
             alert("You have completed all levels");
             $('#game-square').append("<button id='submit-leaderboard' class='btn btn-warning' type='button'> Next Level </button>");
         } else {
@@ -359,6 +392,7 @@ $(document).ready(function(){
         }
     }
 
+    // event listener to check if the next-level-button is clicked
     $(document).on('click', '#next-level-button', function () {
         console.log("Next Level Button Clicked");
         $('#next-level-button').remove();
@@ -366,6 +400,7 @@ $(document).ready(function(){
     });
 
     function generate_cards(random_list) {
+        // function to generate the all the cards for the complex complexity for each level
         $('#game-board').empty()
 
         random_list.forEach((image, index) => {
@@ -390,6 +425,7 @@ $(document).ready(function(){
         );
     }
     
+    // shuffle the cards when they load
     var shuffled = shuffle($("#game-board").children().toArray());
     $('#game-board').empty().append(shuffled);
 

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../css/centered.css">
     <link rel="stylesheet" type="text/css" href="../css/registration_page/form.css">
     <link rel="stylesheet" type="text/css" href="../css/registration_page/avatar_complexity.css">
+    <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
 			crossorigin="anonymous">
@@ -23,31 +24,41 @@
 
 require 'connection.php';
 
+// When user registers, a post request is made
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // get the contents of the form
     $username = $_POST['username'];
     $complexity = $_POST['avatar_complexity'];
     $registered = false;
 
+    // if username has invalid characters
     if (!ctype_alpha($username)) {
         echo "<script>
             $(document).ready(function() {
                 $('#username-error').text('Invalid characters present!!').show();
             });
         </script>";
+    // if username is empty
     } elseif (empty($username)){
         echo "<script>
             $(document).ready(function() {
                 $('#username-error').text('Username cannot be empty!').show();
             });
         </script>";
+    // if the username can be added
     } else {
+        // get table in leaderboard_db based on complexity
         $table_name = "scores_" . strtolower($complexity);
+        // Preparing an SQL query
         $stmt = $connection->prepare("SELECT username FROM $table_name WHERE username = ?");
+        // The username is binded to the prepare statement
         $stmt -> bind_param("s", $username);
+        // Execure query and store result
         $stmt -> execute();
         $stmt -> store_result();
 
+        // checking if the username exists in the database
         if ($stmt -> num_rows > 0) {
             echo "<script>
                 $(document).ready(function() {
@@ -55,15 +66,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 });
             </script>";
         } else {
+            // If the username doesn't exists, create the user 
             $registered = true;
             $_SESSION['username'] = $username;
             $_SESSION['avatar_complexity'] = $complexity;
             $_SESSION['registered'] = $registered;
 
+            // setting cookies so that user can come back and logs in automatically, if page closes
             setcookie('username', $username, time() + (86400*30), "/");
             setcookie('avatar_complexity', $complexity, time() + (86400*30), "/");
             setcookie('registered', $registered, time() + (86400*30), "/");
 
+            // once user registers, direct to game page
             header('Location: pairs.php');
             exit;
         }
@@ -96,6 +110,7 @@ $complex_avatar_list = array(
 
 <body>
     <?php include 'partials/navbar.php'; ?>
+    <!-- Pass arrays for each avatar to use in javascript -->
     <script> const simple_avatar_list = <?php echo json_encode($simple_avatar_list); ?> </script>
     <script> const medium_avatar_list = <?php echo json_encode($medium_avatar_list); ?> </script>
     <script> const complex_avatar_list = <?php echo json_encode($complex_avatar_list); ?> </script>
@@ -125,7 +140,7 @@ $complex_avatar_list = array(
                     <div class="centered">
                         <h1> Default Avatar </h1>
                         <div class="image-wrapper">
-                            <img src="<?php echo $simple_avatar_list[2]; ?>" lass="overlayImage skin">
+                            <img src="<?php echo $simple_avatar_list[2]; ?>" class="overlayImage skin">
                             <img src="<?php echo $simple_avatar_list[1]; ?>" class="overlayImage mouth">
                             <img src="<?php echo $simple_avatar_list[0]; ?>" class="overlayImage eyes">
                         </div>
