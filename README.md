@@ -1,5 +1,5 @@
 # Web-Game-JS-PHP
--**This Repo is a Web Development Module Project**
+- **This Repo is a Web Development Module Project**
 - **Navigation Bar (navbar.php)**
     - Links to the home page
     - Changes if user is registered, can only see leaderboard, game page and see avatar if registered.
